@@ -22,7 +22,8 @@ func main() {
 
 	// Rute untuk menampilkan halaman HTML
 	routes.IndexRoutes(app)
-	routes.AuthRoute(app)
+	routes.AuthRoutes(app)
+	routes.DashboardRoutes(app)
 
 	// Menjalankan server pada port 3000
 	log.Fatal(app.Listen(":3000"))
