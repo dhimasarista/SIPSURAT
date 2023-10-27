@@ -18,9 +18,11 @@ func main() {
 	app := fiber.New(fiber.Config{
 		Views: engine,
 	})
+	app.Static("/", "./public")
 
 	// Rute untuk menampilkan halaman HTML
 	routes.IndexRoutes(app)
+	routes.AuthRoute(app)
 
 	// Menjalankan server pada port 3000
 	log.Fatal(app.Listen(":3000"))
