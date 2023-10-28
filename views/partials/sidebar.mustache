@@ -1,16 +1,3 @@
-<script>
-    const path = '{{path}}';
-    const dashboardPath = document.querySelector(".dashboard-path");
-    const daftarSuratPath = document.querySelector(".daftarsurat-path");
-    const unggahSuratPath = document.querySelector(".unggahsurat-path");
-    if (path === "/dashboard") {
-        dashboardPath.classList.add("active");
-    } else if (path === "/daftarsurat") {
-        daftarSuratPath.classList.add("active");
-    } else if (path === "/unggahsurat") {
-        unggahSuratPath.classList.add("active");
-    }
-</script>
 <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -70,3 +57,17 @@
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 </ul>
+<script>
+    const path = '{{path}}';
+    console.log(path);
+    const dashboardPath = document.querySelector(".dashboard-path");
+    const daftarSuratPath = document.querySelector(".daftarsurat-path");
+    const unggahSuratPath = document.querySelector(".unggahsurat-path");
+    if (path === "/dashboard") {
+        dashboardPath.classList.add("active");
+    } else if (path === "/daftarsurat") {
+        daftarSuratPath.classList.add("active");
+    } else if (path === "/unggahsurat") {
+        unggahSuratPath.classList.add("active");
+    }
+</script>

@@ -25,6 +25,7 @@ func main() {
 	routes.AuthRoutes(app)
 	routes.DashboardRoutes(app)
 	routes.DaftarSuratRoutes(app)
+	routes.UnggahSuratRoutes(app)
 
 	// Menjalankan server pada port 3000
 	log.Fatal(app.Listen(":3000"))
