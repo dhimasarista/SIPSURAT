@@ -9,7 +9,7 @@ func GetDBConnect() *sql.DB {
 	// Membuat koneksi database dengan database pooling
 	db, err := sql.Open("mysql", "root@tcp(localhost:3306)/sipsurat?parseTime=true")
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	// Set maximum open connections and maximum idle connections

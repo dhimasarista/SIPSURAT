@@ -1,7 +1,10 @@
 package models
 
 import (
+	"context"
 	"database/sql"
+	"log"
+	"sipsurat/config"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -20,7 +23,8 @@ type Surat struct {
 	CreatedAt    sql.NullTime   `json:"created_at"`
 }
 
-func (s *Surat) GetById(db *sql.DB, id int) error {
+func (s *Surat) GetById(id int) error {
+	db := config.GetDBConnect()
 	query := "SELECT id, nomor_surat, judul_surat, tanggal_surat, pengirim, penerima, perihal, user_id, jenis_surat, catatan, created_at FROM surat WHERE id = ?"
 	err := db.QueryRow(query, id).Scan(
 		&s.ID,
@@ -41,9 +45,12 @@ func (s *Surat) GetById(db *sql.DB, id int) error {
 	return nil
 }
 
-func (s *Surat) FindAll(db *sql.DB) ([]Surat, error) {
+func (s *Surat) FindAll() ([]Surat, error) {
+	db := config.GetDBConnect()
+
+	ctx := context.Background()
 	query := "SELECT id, nomor_surat, judul_surat, tanggal_surat, pengirim, penerima, perihal, user_id, jenis_surat, catatan, created_at FROM surat"
-	rows, err := db.Query(query)
+	rows, err := db.QueryContext(ctx, query)
 	if err != nil {
 		return nil, err
 	}
@@ -72,4 +79,25 @@ func (s *Surat) FindAll(db *sql.DB) ([]Surat, error) {
 	}
 
 	return surats, nil
+}
+
+func (s *Surat) CountSurat(jenis string) int {
+	db := config.GetDBConnect()
+	query := "SELECT COUNT(*) AS total FROM surat WHERE jenis_surat = ?"
+	rows, err := db.Query(query, jenis)
+	if err != nil {
+		log.Println(err)
+	}
+
+	defer rows.Close()
+
+	var total int
+
+	if rows.Next() {
+		err := rows.Scan(&total)
+		if err != nil {
+			return 0
+		}
+	}
+	return total
 }
